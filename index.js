@@ -5,6 +5,13 @@ canvas.width = 1000;
 canvas.height = 1000;
 document.body.appendChild(canvas);
 
+// Sound Effects
+let soundGameOver = "sounds/gameOver.wav";   //GAME OVER
+let soundCaught = "sounds/caught.wav";      // Caught
+let soundTimesUp = "sounds/timesUp.wav";    //TIMES UP
+// Assign audio to soundEfx
+let soundEfx = document.getElementById("soundEfx");
+
 // Background image Object1
 let bgReady = false;
 let bgImage = new Image();
@@ -93,16 +100,16 @@ addEventListener("keyup", function (e) {
 /// UPDATE game objects
 let update = function (modifier) {
     // modified to keep hero away from bushes
-    if (38 in keysDown && coco.y > 81 + 2) {       //player holding UP
+    if (38 in keysDown && coco.y > 32 + 2) {       //player holding UP
         coco.y -= coco.speed * modifier;
     }
-    if (40 in keysDown && coco.y < canvas.height - (243 + 2)) {       //player holding DOWN
+    if (40 in keysDown && coco.y < canvas.height - (173 + 2)) {       //player holding DOWN
         coco.y += coco.speed * modifier;
     }    
-    if (37 in keysDown && coco.x > (81 + 2)) {       //player holding LEFT
+    if (37 in keysDown && coco.x > (32 + 2)) {       //player holding LEFT
         coco.x -= coco.speed * modifier;
     }
-    if (39 in keysDown && coco.x < canvas.width - (203 + 2)) {       //player holding RIGHT (64 width of tree)
+    if (39 in keysDown && coco.x < canvas.width - (164 + 2)) {       //player holding RIGHT (32 width of tree)
         coco.x += coco.speed * modifier;
     }
 
@@ -113,19 +120,27 @@ let update = function (modifier) {
         && coco.y <= (coconut.y + 81)
         && coconut.y <= (coco.y + 81)
     ) {
-        ++coconutCaught            // keep track of our "score"
+        ++coconutCaught;            // keep track of our "score"
+         // sound effect
+         //soundEfx.src = soundCaught;
+         //soundEfx.play();
         
         //GAME OVER
         if (coconutCaught == 5) {
+            // sound effect
+            soundEfx.src = soundGameOver;
+            soundEfx.play();
+            soundEfx.play();
+            soundEfx.play();
+            soundEfx.play();
             alert("GAME OVER! \nYou caught " + coconutCaught + " coconuts!" );
+            soundEfx.play();
         }
         else {
             reset();
         }
-
         reset();                    // start a new cycle
     }
-        
 };
 
 
@@ -139,10 +154,10 @@ let render = function () {
     }    
     if (borderSideReady) {
         ctx.drawImage(borderSideImage, 0, 0);
-        ctx.drawImage(borderSideImage, 942, 0);
+        ctx.drawImage(borderSideImage, 968, 0);
     }    
     if (borderBottomReady) {
-        ctx.drawImage(borderBottomImage, 0, 901);
+        ctx.drawImage(borderBottomImage, 0, 968);
     }
     if (catchReady) {
         ctx.drawImage(catchImage, coco.x, coco.y);
@@ -156,7 +171,7 @@ let render = function () {
     ctx.font = "24px Helvetica";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    ctx.fillText("Coconut: " + coconutCaught, 81, 81);
+    ctx.fillText("Coconut: " + coconutCaught, 32, 32);
 };
 
 // Reset the game when the player catches a monster
@@ -166,9 +181,9 @@ let reset = function () {
     
     //Place the monster somewhere on the screen randomly
     // but not in the hedges, Article in wrong, the 64 needs to be 
-    // hedge 64 + hedge 64 + char 64 = 192
-        coconut.x = 192 + (Math.random() * (canvas.width - 384));
-        coconut.y = 192 + (Math.random() * (canvas.height - 384));
+    // hedge 32 + hedge 32 + char 32 = 192
+        coconut.x = 32 + (Math.random() * (canvas.width - 150));
+        coconut.y = 32 + (Math.random() * (canvas.height - 148));
     };
     
 
