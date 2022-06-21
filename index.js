@@ -5,12 +5,25 @@ canvas.width = 1000;
 canvas.height = 1000;
 document.body.appendChild(canvas);
 
+let chessBoard = [
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+];
+
 // Sound Effects
+let soundEfx;
 let soundGameOver = "sounds/gameOver.wav";   //GAME OVER
 let soundCaught = "sounds/caught.wav";      // Caught
 let soundTimesUp = "sounds/timesUp.wav";    //TIMES UP
 // Assign audio to soundEfx
-let soundEfx = document.getElementById("soundEfx");
+soundEfx = document.getElementById("soundEfx");
 
 // Background image Object1
 let bgReady = false;
@@ -54,24 +67,81 @@ catchImage.src = "images/catch.png";
 
 // green coconut image object3
 let coconutReady = false;
-let coconutImage = new Image();
+let coconutImage = new Image();     // 64 x 64
 coconutImage.onload = function () {
     coconutReady = true;
 };
 coconutImage.src = "images/coconut.png";
 
+// watermelon1 image object3
+let watermelon1Ready = false;
+let watermelon1Image = new Image();
+watermelon1Image.onload = function () {
+    watermelon1Ready = true;
+};
+watermelon1Image.src = "images/watermelon1.png";
+
+// watermelon2 image object3
+let watermelon2Ready = false;
+let watermelon2Image = new Image();
+watermelon2Image.onload = function () {
+    watermelon2Ready = true;
+};
+watermelon2Image.src = "images/watermelon2.png";
+
+// watermelon3 image object3
+let watermelon3Ready = false;
+let watermelon3Image = new Image();
+watermelon3Image.onload = function () {
+    watermelon3Ready = true;
+};
+watermelon3Image.src = "images/watermelon3.png";
+
+// watermelon4 image object3
+let watermelon4Ready = false;
+let watermelon4Image = new Image();
+watermelon4Image.onload = function () {
+    watermelon4Ready = true;
+};
+watermelon4Image.src = "images/watermelon4.png";
+
+
 // Game objects
-let coco = {
+let cocoBasket = {
 	speed: 256, // movement in pixels per second
 	x: 0,  // where on the canvas are they?
 	y: 0  // where on the canvas are they?
 };
+
 let coconut = {
 // for this version, the monster does not move, so just and x and y
 	x: 0,
 	y: 0
 };
+
+let watermelon1 = {
+    x: 0,
+    y: 0
+};
+
+let watermelon2 = {
+    x: 0,
+    y: 0
+};
+
+let watermelon3 = {
+    x: 0,
+    y: 0
+};
+
+let watermelon4 = {
+    x: 0,
+    y: 0
+};
+
 let coconutCaught = 0;
+let notCoconut = false;
+
 
 
 
@@ -94,53 +164,141 @@ addEventListener("keyup", function (e) {
 }, false);
 
 
+// RESET the game when palyer catches watermelon
+let resetAgain = function () {
+    if(notCoconut == true) {
+        soundEfx.src = soundGameOver;
+        soundEfx.play();
+    }
+    else {
+        placeItem(cocoBasket);
+        placeItem(coconut);
+        placeItem(watermelon1);
+        placeItem(watermelon2);
+        placeItem(watermelon3);
+        placeItem(watermelon4);
+
+        if (coconutCaught == 5) {
+            alert("You WON!");
+            //sound effect
+            soundEfx.src = soundGameOver;
+            soundEfx.play();
+        }
+    }
+};
+
+let placeItem = function (character) {
+    let X = 4;
+    let Y = 7;
+    let success = false;
+    while (!success) {
+        X = Math.floor( Math.random() * 9); //returns 0 thru 8
+        Y = Math.floor( Math.random() * 9); 
+
+        if (chessBoard[X][Y] == "x") {
+            success = true;
+        }
+    }
+    chessBoard[X][Y] = "O"; //mark the square as taken
+    character.x = (X*100) + 32;     // border is 32
+    character.y = (Y*100) + 32;
+}
+
+
+
 
 // *********** FUNCTIONS here  **************
 
 /// UPDATE game objects
 let update = function (modifier) {
     // modified to keep hero away from bushes
-    if (38 in keysDown && coco.y > 32 + 2) {       //player holding UP
-        coco.y -= coco.speed * modifier;
+    if (38 in keysDown && cocoBasket.y > 32 + 2) {       //player holding UP
+        cocoBasket.y -= cocoBasket.speed * modifier;
+        // if (cocoBasket.y < (32) ) {
+        //     coconutBasket.y = 32;
+        // }
     }
-    if (40 in keysDown && coco.y < canvas.height - (173 + 2)) {       //player holding DOWN
-        coco.y += coco.speed * modifier;
+    if (40 in keysDown && cocoBasket.y < canvas.height - (173 + 2)) {       //player holding DOWN
+        cocoBasket.y += cocoBasket.speed * modifier;
+        // if (cocoBasket.y > (1000 - 81) ) {
+        //     cocoBasket.y = 1000 - 81;
+        // }
     }    
-    if (37 in keysDown && coco.x > (32 + 2)) {       //player holding LEFT
-        coco.x -= coco.speed * modifier;
+    if (37 in keysDown && cocoBasket.x > (32 + 2)) {       //player holding LEFT
+        cocoBasket.x -= cocoBasket.speed * modifier;
+        // if (cocoBasket.x < 21 ) {
+        //     cocoBasket.x = 21;
+        // }
     }
-    if (39 in keysDown && coco.x < canvas.width - (164 + 2)) {       //player holding RIGHT (32 width of tree)
-        coco.x += coco.speed * modifier;
+    if (39 in keysDown && cocoBasket.x < canvas.width - (164 + 2)) {       //player holding RIGHT (32 width of tree)
+        cocoBasket.x += cocoBasket.speed * modifier;
+        // if (cocoBasket.x > 1000 - 166 ) {
+        //     cocoBasket.x = 1000 - 166;
+        // }
     }
 
     //are they touching?
     if (
-        coco.x <= (coconut.x + 81)      // 81 is the width of the characters
-        && coconut.x <= (coco.x + 81)
-        && coco.y <= (coconut.y + 81)
-        && coconut.y <= (coco.y + 81)
+        cocoBasket.x <= (coconut.x + 81)      // 81 is the width of the characters
+        && coconut.x <= (cocoBasket.x + 81)
+        && cocoBasket.y <= (coconut.y + 81)
+        && coconut.y <= (cocoBasket.y + 81)
     ) {
         ++coconutCaught;            // keep track of our "score"
-         // sound effect
-         //soundEfx.src = soundCaught;
-         //soundEfx.play();
+        //  sound effect
+         soundEfx.src = soundCaught;
+         soundEfx.play();
         
         //GAME OVER
         if (coconutCaught == 5) {
             // sound effect
+            // soundEfx.pause();
             soundEfx.src = soundGameOver;
             soundEfx.play();
             soundEfx.play();
-            soundEfx.play();
-            soundEfx.play();
             alert("GAME OVER! \nYou caught " + coconutCaught + " coconuts!" );
-            soundEfx.play();
         }
         else {
             reset();
         }
         reset();                    // start a new cycle
     }
+
+    if (
+        cocoBasket.x + 4 <= (watermelon1.x + 35)
+        && watermelon1.x <= (cocoBasket.x + 25)
+        && cocoBasket.y <= (watermelon1.y + 35)
+        && watermelon1.y <= (cocoBasket.y + 25)
+    ) {
+        soundGameOver()
+    }
+
+    if (
+        cocoBasket.x + 4 <= (watermelon1.x + 35)
+        && watermelon2.x <= (cocoBasket.x + 25)
+        && cocoBasket.y <= (watermelon2.y + 35)
+        && watermelon2.y <= (cocoBasket.y + 25)
+    ) {
+        soundGameOver()
+    }
+
+    if (
+        cocoBasket.x + 4 <= (watermelon3.x + 35)
+        && watermelon3.x <= (cocoBasket.x + 25)
+        && cocoBasket.y <= (watermelon3.y + 35)
+        && watermelon3.y <= (cocoBasket.y + 25)
+    ) {
+        soundGameOver()
+    }
+    if (
+        cocoBasket.x + 4 <= (watermelon4.x + 35)
+        && watermelon4.x <= (cocoBasket.x + 25)
+        && cocoBasket.y <= (watermelon4.y + 35)
+        && watermelon4.y <= (cocoBasket.y + 25)
+    ) {
+        soundGameOver()
+    }
+
 };
 
 
@@ -160,15 +318,30 @@ let render = function () {
         ctx.drawImage(borderBottomImage, 0, 968);
     }
     if (catchReady) {
-        ctx.drawImage(catchImage, coco.x, coco.y);
+        ctx.drawImage(catchImage, cocoBasket.x, cocoBasket.y);
     }
 	if (coconutReady) {
 		ctx.drawImage(coconutImage, coconut.x, coconut.y);
     }
+    if (watermelon1Ready) {
+        ctx.drawImage(watermelon1Image, watermelon1.x, watermelon1.y);
+    }
+
+    if (watermelon2Ready) {
+        ctx.drawImage(watermelon2Image, watermelon2.x, watermelon2.y);
+    }
+
+    if (watermelon2Ready) {
+        ctx.drawImage(watermelon3Image, watermelon3.x, watermelon3.y);
+    }
+
+    if (watermelon4) {
+        ctx.drawImage(watermelon4Image, watermelon4.x, watermelon4.y);
+    }
 
     // SCORE
     ctx.fillStyle = "rgb(255, 0, 0)";
-    ctx.font = "24px Helvetica";
+    ctx.font = "24px Courier";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     ctx.fillText("Coconut: " + coconutCaught, 32, 32);
@@ -176,8 +349,8 @@ let render = function () {
 
 // Reset the game when the player catches a monster
 let reset = function () {
-    coco.x = canvas.width / 2;
-    coco.y = canvas.height / 2;
+    cocoBasket.x = canvas.width / 2;
+    cocoBasket.y = canvas.height / 2;
     
     //Place the monster somewhere on the screen randomly
     // but not in the hedges, Article in wrong, the 64 needs to be 
