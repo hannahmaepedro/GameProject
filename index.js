@@ -5,17 +5,17 @@ canvas.width = 1000;
 canvas.height = 1000;
 document.body.appendChild(canvas);
 
-let chessBoard = [
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-];
+// let chessBoard = [
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+//     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+// ];
 
 // Sound Effects
 let soundEfx;
@@ -73,37 +73,37 @@ coconutImage.onload = function () {
 };
 coconutImage.src = "images/coconut.png";
 
-// watermelon1 image object3
-let watermelon1Ready = false;
-let watermelon1Image = new Image();
-watermelon1Image.onload = function () {
-    watermelon1Ready = true;
-};
-watermelon1Image.src = "images/watermelon1.png";
+// // watermelon1 image object3
+// let watermelon1Ready = false;
+// let watermelon1Image = new Image();
+// watermelon1Image.onload = function () {
+//     watermelon1Ready = true;
+// };
+// watermelon1Image.src = "images/watermelon1.png";
 
-// watermelon2 image object3
-let watermelon2Ready = false;
-let watermelon2Image = new Image();
-watermelon2Image.onload = function () {
-    watermelon2Ready = true;
-};
-watermelon2Image.src = "images/watermelon2.png";
+// // watermelon2 image object3
+// let watermelon2Ready = false;
+// let watermelon2Image = new Image();
+// watermelon2Image.onload = function () {
+//     watermelon2Ready = true;
+// };
+// watermelon2Image.src = "images/watermelon2.png";
 
-// watermelon3 image object3
-let watermelon3Ready = false;
-let watermelon3Image = new Image();
-watermelon3Image.onload = function () {
-    watermelon3Ready = true;
-};
-watermelon3Image.src = "images/watermelon3.png";
+// // watermelon3 image object3
+// let watermelon3Ready = false;
+// let watermelon3Image = new Image();
+// watermelon3Image.onload = function () {
+//     watermelon3Ready = true;
+// };
+// watermelon3Image.src = "images/watermelon3.png";
 
-// watermelon4 image object3
-let watermelon4Ready = false;
-let watermelon4Image = new Image();
-watermelon4Image.onload = function () {
-    watermelon4Ready = true;
-};
-watermelon4Image.src = "images/watermelon4.png";
+// // watermelon4 image object3
+// let watermelon4Ready = false;
+// let watermelon4Image = new Image();
+// watermelon4Image.onload = function () {
+//     watermelon4Ready = true;
+// };
+// watermelon4Image.src = "images/watermelon4.png";
 
 
 // Game objects
@@ -119,28 +119,30 @@ let coconut = {
 	y: 0
 };
 
-let watermelon1 = {
-    x: 0,
-    y: 0
-};
+// //Watermelon version
+// let watermelon1 = {
+//     x: 0,
+//     y: 0
+// };
 
-let watermelon2 = {
-    x: 0,
-    y: 0
-};
+// let watermelon2 = {
+//     x: 0,
+//     y: 0
+// };
 
-let watermelon3 = {
-    x: 0,
-    y: 0
-};
+// let watermelon3 = {
+//     x: 0,
+//     y: 0
+// };
 
-let watermelon4 = {
-    x: 0,
-    y: 0
-};
+// let watermelon4 = {
+//     x: 0,
+//     y: 0
+// };
 
 let coconutCaught = 0;
 let notCoconut = false;
+//let timesUp = 0; /// will add a timer in the new version
 
 
 
@@ -164,7 +166,7 @@ addEventListener("keyup", function (e) {
 }, false);
 
 
-// RESET the game when palyer catches watermelon
+// RESET the game when player catches WATERMELON
 let resetAgain = function () {
     if(notCoconut == true) {
         soundEfx.src = soundGameOver;
@@ -173,10 +175,10 @@ let resetAgain = function () {
     else {
         placeItem(cocoBasket);
         placeItem(coconut);
-        placeItem(watermelon1);
-        placeItem(watermelon2);
-        placeItem(watermelon3);
-        placeItem(watermelon4);
+        // placeItem(watermelon1);
+        // placeItem(watermelon2);
+        // placeItem(watermelon3);
+        // placeItem(watermelon4);
 
         if (coconutCaught == 5) {
             alert("You WON!");
@@ -187,22 +189,23 @@ let resetAgain = function () {
     }
 };
 
-let placeItem = function (character) {
-    let X = 4;
-    let Y = 7;
-    let success = false;
-    while (!success) {
-        X = Math.floor( Math.random() * 9); //returns 0 thru 8
-        Y = Math.floor( Math.random() * 9); 
+// //WATERMELON version
+// let placeItem = function (character) {
+//     let X = 4;
+//     let Y = 7;
+//     let success = false;
+//     while (!success) {
+//         X = Math.floor( Math.random() * 9); //returns 0 thru 8
+//         Y = Math.floor( Math.random() * 9); 
 
-        if (chessBoard[X][Y] == "x") {
-            success = true;
-        }
-    }
-    chessBoard[X][Y] = "O"; //mark the square as taken
-    character.x = (X*100) + 32;     // border is 32
-    character.y = (Y*100) + 32;
-}
+//         if (chessBoard[X][Y] == "x") {
+//             success = true;
+//         }
+//     }
+//     chessBoard[X][Y] = "O"; //mark the square as taken
+//     character.x = (X*100) + 32;     // border is 32
+//     character.y = (Y*100) + 32;
+// }
 
 
 
@@ -214,27 +217,16 @@ let update = function (modifier) {
     // modified to keep hero away from bushes
     if (38 in keysDown && cocoBasket.y > 32 + 2) {       //player holding UP
         cocoBasket.y -= cocoBasket.speed * modifier;
-        // if (cocoBasket.y < (32) ) {
-        //     coconutBasket.y = 32;
-        // }
     }
     if (40 in keysDown && cocoBasket.y < canvas.height - (173 + 2)) {       //player holding DOWN
         cocoBasket.y += cocoBasket.speed * modifier;
-        // if (cocoBasket.y > (1000 - 81) ) {
-        //     cocoBasket.y = 1000 - 81;
-        // }
     }    
     if (37 in keysDown && cocoBasket.x > (32 + 2)) {       //player holding LEFT
         cocoBasket.x -= cocoBasket.speed * modifier;
-        // if (cocoBasket.x < 21 ) {
-        //     cocoBasket.x = 21;
-        // }
+       
     }
     if (39 in keysDown && cocoBasket.x < canvas.width - (164 + 2)) {       //player holding RIGHT (32 width of tree)
         cocoBasket.x += cocoBasket.speed * modifier;
-        // if (cocoBasket.x > 1000 - 166 ) {
-        //     cocoBasket.x = 1000 - 166;
-        // }
     }
 
     //are they touching?
@@ -263,41 +255,41 @@ let update = function (modifier) {
         }
         reset();                    // start a new cycle
     }
+/// with WATERMELON version
+    // if (
+    //     cocoBasket.x + 4 <= (watermelon1.x + 35)
+    //     && watermelon1.x <= (cocoBasket.x + 25)
+    //     && cocoBasket.y <= (watermelon1.y + 35)
+    //     && watermelon1.y <= (cocoBasket.y + 25)
+    // ) {
+    //     soundGameOver()
+    // }
 
-    if (
-        cocoBasket.x + 4 <= (watermelon1.x + 35)
-        && watermelon1.x <= (cocoBasket.x + 25)
-        && cocoBasket.y <= (watermelon1.y + 35)
-        && watermelon1.y <= (cocoBasket.y + 25)
-    ) {
-        soundGameOver()
-    }
+    // if (
+    //     cocoBasket.x + 4 <= (watermelon1.x + 35)
+    //     && watermelon2.x <= (cocoBasket.x + 25)
+    //     && cocoBasket.y <= (watermelon2.y + 35)
+    //     && watermelon2.y <= (cocoBasket.y + 25)
+    // ) {
+    //     soundGameOver()
+    // }
 
-    if (
-        cocoBasket.x + 4 <= (watermelon1.x + 35)
-        && watermelon2.x <= (cocoBasket.x + 25)
-        && cocoBasket.y <= (watermelon2.y + 35)
-        && watermelon2.y <= (cocoBasket.y + 25)
-    ) {
-        soundGameOver()
-    }
-
-    if (
-        cocoBasket.x + 4 <= (watermelon3.x + 35)
-        && watermelon3.x <= (cocoBasket.x + 25)
-        && cocoBasket.y <= (watermelon3.y + 35)
-        && watermelon3.y <= (cocoBasket.y + 25)
-    ) {
-        soundGameOver()
-    }
-    if (
-        cocoBasket.x + 4 <= (watermelon4.x + 35)
-        && watermelon4.x <= (cocoBasket.x + 25)
-        && cocoBasket.y <= (watermelon4.y + 35)
-        && watermelon4.y <= (cocoBasket.y + 25)
-    ) {
-        soundGameOver()
-    }
+    // if (
+    //     cocoBasket.x + 4 <= (watermelon3.x + 35)
+    //     && watermelon3.x <= (cocoBasket.x + 25)
+    //     && cocoBasket.y <= (watermelon3.y + 35)
+    //     && watermelon3.y <= (cocoBasket.y + 25)
+    // ) {
+    //     soundGameOver()
+    // }
+    // if (
+    //     cocoBasket.x + 4 <= (watermelon4.x + 35)
+    //     && watermelon4.x <= (cocoBasket.x + 25)
+    //     && cocoBasket.y <= (watermelon4.y + 35)
+    //     && watermelon4.y <= (cocoBasket.y + 25)
+    // ) {
+    //     soundGameOver()
+    // }
 
 };
 
@@ -323,21 +315,21 @@ let render = function () {
 	if (coconutReady) {
 		ctx.drawImage(coconutImage, coconut.x, coconut.y);
     }
-    if (watermelon1Ready) {
-        ctx.drawImage(watermelon1Image, watermelon1.x, watermelon1.y);
-    }
+    // if (watermelon1Ready) {
+    //     ctx.drawImage(watermelon1Image, watermelon1.x, watermelon1.y);
+    // }
 
-    if (watermelon2Ready) {
-        ctx.drawImage(watermelon2Image, watermelon2.x, watermelon2.y);
-    }
+    // if (watermelon2Ready) {
+    //     ctx.drawImage(watermelon2Image, watermelon2.x, watermelon2.y);
+    // }
 
-    if (watermelon2Ready) {
-        ctx.drawImage(watermelon3Image, watermelon3.x, watermelon3.y);
-    }
+    // if (watermelon2Ready) {
+    //     ctx.drawImage(watermelon3Image, watermelon3.x, watermelon3.y);
+    // }
 
-    if (watermelon4) {
-        ctx.drawImage(watermelon4Image, watermelon4.x, watermelon4.y);
-    }
+    // if (watermelon4) {
+    //     ctx.drawImage(watermelon4Image, watermelon4.x, watermelon4.y);
+    // }
 
     // SCORE
     ctx.fillStyle = "rgb(255, 0, 0)";
@@ -345,18 +337,22 @@ let render = function () {
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     ctx.fillText("Coconut: " + coconutCaught, 32, 32);
+
+    // //TIMER
+    //ctx.fillText("Timer: " + timesUp, 32, 64);
 };
 
-// Reset the game when the player catches a monster
+// Reset the game when the player catches a coconut
 let reset = function () {
     cocoBasket.x = canvas.width / 2;
     cocoBasket.y = canvas.height / 2;
     
-    //Place the monster somewhere on the screen randomly
-    // but not in the hedges, Article in wrong, the 64 needs to be 
-    // hedge 32 + hedge 32 + char 32 = 192
+    //Place the coconut somewhere on the screen randomly
+    // but not in the border
+    // border 32 + border 32 + border 32 = 192
         coconut.x = 32 + (Math.random() * (canvas.width - 150));
         coconut.y = 32 + (Math.random() * (canvas.height - 148));
+        //watermelon1.x = 32 +(Math.random() * (canvas.height - 148));
     };
     
 
